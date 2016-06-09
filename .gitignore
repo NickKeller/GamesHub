@@ -3,3 +3,7 @@
 ################################################################################
 
 /GamesHub/.vs/GamesHub/v14
+/GamesHub/bin/Debug
+/GamesHub/obj/Debug
+/GamesHub/GamesHub.sln
+/GamesHub/GamesHub.csproj
