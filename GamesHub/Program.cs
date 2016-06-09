@@ -6,8 +6,11 @@ using System.Windows.Forms;
 
 namespace GamesHub
 {
-    static class Program
+    public static class Program
     {
+
+        public static string path { get; set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,12 +18,23 @@ namespace GamesHub
         static void Main()
         {
             //check some stuff in documents, make sure it's there.
-
+            path = "";
 
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SelectRootScreen());
+            while (String.IsNullOrEmpty(path))
+            {
+                Application.Run(new SelectRootScreen());
+            }
+
+
+            if (!String.IsNullOrEmpty(path))
+            {
+                Application.Run(new GamesHubMain(path));
+            }
+
+            Console.WriteLine("DOne");
         }
     }
 }
