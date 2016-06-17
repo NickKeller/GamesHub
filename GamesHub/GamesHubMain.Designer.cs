@@ -29,22 +29,33 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
+            this.gamesListView = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(86, 98);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "blah";
             // 
+            // gamesListView
+            // 
+            this.gamesListView.Location = new System.Drawing.Point(12, 25);
+            this.gamesListView.Name = "gamesListView";
+            this.gamesListView.Size = new System.Drawing.Size(407, 382);
+            this.gamesListView.TabIndex = 1;
+            this.gamesListView.UseCompatibleStateImageBehavior = false;
+            this.gamesListView.View = System.Windows.Forms.View.List;
+            // 
             // GamesHubMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(792, 418);
+            this.Controls.Add(this.gamesListView);
             this.Controls.Add(this.label1);
             this.Name = "GamesHubMain";
             this.Text = "GamesHubMain";
@@ -56,5 +67,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView gamesListView;
     }
 }

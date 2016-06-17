@@ -13,7 +13,7 @@ namespace GamesHub
 {
     public partial class SelectRootScreen : Form
     {
-        private string filePath { get; set; }
+        public string filePath { get; set; }
 
         public SelectRootScreen()
         {
@@ -38,13 +38,18 @@ namespace GamesHub
             string path = gamesRootTextBox.Text;
             if (Directory.Exists(path))
             {
-                Program.path = filePath;
+                filePath = path;
                 Close();
             }
             else
             {
                 MessageBox.Show("Error, you must select a valid file path");
             }
+        }
+
+        private void gamesRootTextBox_TextChanged(object sender, EventArgs e)
+        {
+            filePath = gamesRootTextBox.Text;
         }
     }
 }

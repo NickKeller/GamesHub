@@ -51,6 +51,7 @@
             this.gamesRootTextBox.Size = new System.Drawing.Size(245, 20);
             this.gamesRootTextBox.TabIndex = 1;
             this.gamesRootTextBox.Text = "Path";
+            this.gamesRootTextBox.TextChanged += new System.EventHandler(this.gamesRootTextBox_TextChanged);
             // 
             // ChooseRootButton
             // 
@@ -80,6 +81,7 @@
             // 
             // SelectRootScreen
             // 
+            this.AcceptButton = this.filePathOKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(347, 75);
