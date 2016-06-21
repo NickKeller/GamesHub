@@ -44,5 +44,20 @@ namespace GamesHub
                 gamesListView.Items.Add(item);
             }
         }
+
+        private void addPathButton_Click(object sender, EventArgs e)
+        {
+            SelectRootScreen screen = new SelectRootScreen();
+            screen.ShowDialog();
+            if (String.IsNullOrEmpty(screen.filePath))
+            {
+                return;
+            }
+            else
+            {
+
+            }
+
+        }
     }
 }
