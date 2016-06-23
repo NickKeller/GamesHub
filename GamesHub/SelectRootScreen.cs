@@ -51,5 +51,10 @@ namespace GamesHub
         {
             filePath = gamesRootTextBox.Text;
         }
+
+        public new string ShowDialog()
+        {
+            return base.ShowDialog() == DialogResult.OK ? filePath : "";
+        }
     }
 }

@@ -52,7 +52,6 @@
     <Compile Include="GamesHubMain.Designer.cs">
       <DependentUpon>GamesHubMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Prompt.cs" />
     <Compile Include="SelectRootScreen.cs">
       <SubType>Form</SubType>
     </Compile>
