@@ -51,7 +51,6 @@
             this.gamesRootTextBox.Size = new System.Drawing.Size(245, 20);
             this.gamesRootTextBox.TabIndex = 1;
             this.gamesRootTextBox.Text = "Path";
-            this.gamesRootTextBox.TextChanged += new System.EventHandler(this.gamesRootTextBox_TextChanged);
             // 
             // ChooseRootButton
             // 

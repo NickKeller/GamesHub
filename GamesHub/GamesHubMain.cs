@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace GamesHub
 {
@@ -18,9 +19,12 @@ namespace GamesHub
         /// </summary>
         private string root { get; set; }
 
+        private Dictionary<string,FileInfo> games { get; set; }
+
         public GamesHubMain()
         {
             root = "";
+            games = new Dictionary<string, FileInfo>();
             InitializeComponent();
 
             if (!String.IsNullOrEmpty(root))
@@ -36,28 +40,38 @@ namespace GamesHub
 
             //populate the list view
             DirectoryInfo rootDir = new DirectoryInfo(root);
-            var exeFiles = rootDir.GetFiles("*.exe", SearchOption.AllDirectories);
-            foreach (var exeFile in exeFiles)
+            var gameDirs = rootDir.GetDirectories("*", SearchOption.TopDirectoryOnly);
+            foreach (var gameDir in gameDirs)
             {
-                string name = exeFile.FullName;
-                ListViewItem item = new ListViewItem(name);
-                gamesListView.Items.Add(item);
+                var exeFiles = gameDir.GetFiles("*.exe", SearchOption.TopDirectoryOnly);
+                foreach (var item in exeFiles)
+                {
+                    if (isGame(item.Name))
+                    {
+                        //get the properties of the exe file
+                        FileVersionInfo att = FileVersionInfo.GetVersionInfo(item.FullName);
+                        string comments = att.FileDescription;
+                        ListViewItem newItem = new ListViewItem(comments);
+                        newItem.SubItems.Add(item.FullName);
+                        gamesListView.Items.Add(newItem);
+                    }
+                }
+
             }
+        }
+
+        private bool isGame(string game)
+        {
+            string name = game.ToLower();
+            return !(name.Contains("config") || name.Contains("setup") || name.Contains("uninstall") || name.Contains("patch"));
         }
 
         private void addPathButton_Click(object sender, EventArgs e)
         {
             SelectRootScreen screen = new SelectRootScreen();
-            screen.ShowDialog();
-            if (String.IsNullOrEmpty(screen.filePath))
-            {
-                return;
-            }
-            else
-            {
-
-            }
-
+            root = screen.ShowDialog();
+            if (!String.IsNullOrEmpty(root))
+                populateList();
         }
     }
 }

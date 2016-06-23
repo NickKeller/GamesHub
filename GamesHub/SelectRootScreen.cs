@@ -39,6 +39,7 @@ namespace GamesHub
             if (Directory.Exists(path))
             {
                 filePath = path;
+                this.DialogResult = DialogResult.OK;
                 Close();
             }
             else
@@ -47,14 +48,10 @@ namespace GamesHub
             }
         }
 
-        private void gamesRootTextBox_TextChanged(object sender, EventArgs e)
-        {
-            filePath = gamesRootTextBox.Text;
-        }
-
         public new string ShowDialog()
         {
-            return base.ShowDialog() == DialogResult.OK ? filePath : "";
+            bool ok = base.ShowDialog() == DialogResult.OK;
+            return  ok ? filePath : "";
         }
     }
 }
