@@ -19,12 +19,12 @@ namespace GamesHub
         /// </summary>
         private string root { get; set; }
 
-        private Dictionary<string,FileInfo> games { get; set; }
+        private Dictionary<string, GamesHubFile> games { get; set; }
 
         public GamesHubMain()
         {
             root = "";
-            games = new Dictionary<string, FileInfo>();
+            games = new Dictionary<string, GamesHubFile>();
             InitializeComponent();
 
             if (!String.IsNullOrEmpty(root))
@@ -51,9 +51,15 @@ namespace GamesHub
                         //get the properties of the exe file
                         FileVersionInfo att = FileVersionInfo.GetVersionInfo(item.FullName);
                         string comments = att.FileDescription;
+
+                        //add to list of games
                         ListViewItem newItem = new ListViewItem(comments);
                         newItem.SubItems.Add(item.FullName);
                         gamesListView.Items.Add(newItem);
+
+                        //add to internal list, for information loading
+                        GamesHubFile file = new GamesHubFile(item, att);
+                        games.Add(item.FullName, file);
                     }
                 }
 
@@ -72,6 +78,26 @@ namespace GamesHub
             root = screen.ShowDialog();
             if (!String.IsNullOrEmpty(root))
                 populateList();
+        }
+
+
+        private void gamesListView_ItemActivate(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = (sender as ListView).FocusedItem;
+            string key = selectedItem.SubItems[1].Text;
+            GamesHubFile game = games[key];
+            gameInfoPanelLocationTextLabel.Text = game.file.FullName;
+            gameInfoPanelNameTextLabel.Text = game.versionInfo.FileDescription;
+            gameInfoPanelIcon.Image = Icon.ExtractAssociatedIcon(game.file.FullName).ToBitmap();
+        }
+
+        private void gameInfoPanelPlayButton_Click(object sender, EventArgs e)
+        {
+            //get the game loaded into the info panel
+            string gameToPlay = gameInfoPanelLocationTextLabel.Text;
+            Process p = new Process();
+            p.StartInfo.FileName = gameToPlay;
+            p.Start();
         }
     }
 }
